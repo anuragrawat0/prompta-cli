@@ -2,7 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";import { authClient } from "../lib/auth-client";
+import { Card, CardContent } from "./ui/card";
+import { authClient } from "../lib/auth-client";
 import { useState } from "react";
 
 const LoginForm = () => {

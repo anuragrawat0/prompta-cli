@@ -16,7 +16,6 @@ const corsOptions: cors.CorsOptions = {
 app.use(cors(corsOptions));
 app.options(/.*/, cors(corsOptions));
 
-
 app.use("/api/auth", toNodeHandler(auth));
 
 app.use(express.json());
@@ -25,6 +24,10 @@ app.get("/api/me", async (req, res) => {
   const session = await auth.api.getSession({
     headers: fromNodeHeaders(req.headers),
   });
+  if (!session) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
   res.json(session);
 });
 

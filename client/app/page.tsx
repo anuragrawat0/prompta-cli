@@ -23,7 +23,7 @@ const page = () => {
       </div>
     );
   }
-  if (!data?.session && !data?.user) {
+  if (!data?.session || !data?.user) {
     return null
   }
   return (
@@ -48,12 +48,13 @@ const page = () => {
             </div>
             <div className="space-y-3 text-center">
               <h1 className="text-3xl font-bold text-zinc-50 truncate">
-                Welcome, {data?.user?.name || "User"}
+                Welcome
+                <p>{data?.user?.name || "User"}</p>
               </h1>
               <p className="text-sm text-zinc-400">Authenticated User</p>
             </div>
           </div>
-          <div className="border-2 border-dashed border-zinc-700 rounded-2xl rouned-2xl p-6 bg-zinc-900/50 backdrop-blur-sm space-y-4">
+          <div className="border-2 border-dashed border-zinc-700 rounded-2xl p-6 bg-zinc-900/50 backdrop-blur-sm space-y-4">
             <div className="space-y-2">
               <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wide">
                 Email Address
@@ -76,9 +77,9 @@ const page = () => {
           >
             Sign Out
           </Button>
-          <div className="flex-itmes-center gap-3">
+          <div className="flex-items-center gap-3">
             <div className="flex-1 h-px border-t border-dashed border-zinc-700"></div>
-            <span className="flex-xs text-zinc-600">Session Active</span>
+            <span className="text-xs text-zinc-600">Session Active</span>
             <div className="flex-1 h-px border-t border-dashed border-zinc-700"></div>
           </div>
         </div>
