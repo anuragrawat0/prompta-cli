@@ -8,20 +8,25 @@ dotenv.config({
 
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "../generated/prisma/client.js";
+import { prisma  } from "./db.js";
+import { deviceAuthorization } from "better-auth/plugins";
 
 const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env;
 if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
   throw new Error("Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET in environment");
 }
 
-const prisma = new PrismaClient();
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
         provider: "postgresql", 
     }),
     basePath: "/api/auth",
     trustedOrigins:["http://localhost:3000"],
+    plugins: [
+    deviceAuthorization({ 
+      verificationUri: "/device", 
+    }), 
+  ],
     socialProviders:{
         github:{
             clientId: GITHUB_CLIENT_ID,
